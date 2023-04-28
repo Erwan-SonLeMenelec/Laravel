@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,40 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/tp', function () {
+
+   // return \App\Models\Product::paginate(1);
+
+   // dd($product[1]->name);
+
+   // return $product;
+
+    /*$product = new \App\Models\product();
+    $product->name = 'Produit 3';
+    $product->price = 10;
+    $product->description = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis eaque, cumque cum,
+     nam sequi a nisi laudantium reiciendis debitis obcaecati id eligendi blanditiis explicabo autem saepe placeat repellat
+     magnam assumenda.';
+     $product->quantity = 200;
+     $product->save();
+
+     return $product;
+     */
+    return view('tp\index')
+        ->with ('id', 1)
+        ->with ('name', 'Produit 1')
+        ->with ('description', 'Lorem ipsum dolor sit amet')
+        ->with ('price', 10)
+        ->with ('quantity', 200);
+        //->with $product
+
+})->name('index');
+
+Route::get('/tp/{id}', function (string $id,) {
+    $product = \App\Models\product::find($id);
+    return $product;
+})->name('show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
