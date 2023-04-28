@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
+use App\Models\product;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,15 +40,15 @@ Route::get('/tp', function () {
 
      return $product;
      */
-    return view('tp\index')
-        ->with ('id', 1)
-        ->with ('name', 'Produit 1')
-        ->with ('description', 'Lorem ipsum dolor sit amet')
-        ->with ('price', 10)
-        ->with ('quantity', 200);
+    //return view('tp\index')
+    //   ->with ('id', 1)
+    //    ->with ('name', 'Produit 1')
+    //    ->with ('description', 'Lorem ipsum dolor sit amet')
+    //    ->with ('price', 10)
+    //    ->with ('quantity', 200);
         //->with $product
 
-})->name('index');
+});
 
 Route::get('/tp/{id}', function (string $id,) {
     $product = \App\Models\product::find($id);

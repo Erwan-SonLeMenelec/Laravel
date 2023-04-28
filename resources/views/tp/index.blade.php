@@ -8,16 +8,6 @@
     @dump (['cool'])
 
     {{"test"}}
-    @foreach($products as $product)
-        <article>
-            <h2>{{$product ->title}}</h2>
-            <p>
-                {{$product->content}}
-            </p>
-            <img {{$product->image}}>
-        </article>
-    @endofreach
 
-    {{$products->links()}}
 @endsection
 
