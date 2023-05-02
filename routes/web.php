@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Models\product;
 
 
@@ -17,11 +18,14 @@ use App\Models\product;
 |
 */
 
+Route::resource("products",ProductController::class);
+
+Route::get('/product', [\App\Http\Controllers\ProductController::class, 'index']);
+Route::post('/product/create',[\App\Http\Controllers\ProductController::class, 'create']);
+
 Route::get('/', function () {
     return view('welcome');
-});
 
-Route::get('/tp', function () {
 
    // return \App\Models\Product::paginate(1);
 
@@ -64,5 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/product/create', [ProductController::class, 'create']);
+Route::post('/product', [ProductController::class, 'store']);
+
 
 require __DIR__.'/auth.php';
