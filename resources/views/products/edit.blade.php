@@ -24,44 +24,56 @@
                     @csrf
 
                     <p>
-                        <label for="title" >Titre</label><br/>
+                        <label for="name" >Nom</label><br/>
 
-                        <!-- S'il y a un $product->title, on complète la valeur de l'input -->
-                        <input type="text" name="title" value="{{ isset($product->title) ? $product->title : old('title') }}"  id="title" placeholder="Le titre du produit" >
+                        <!-- S'il y a un $product->name, on complète la valeur de l'input -->
+                        <input type="text" name="name" value="{{ isset($product->name) ? $product->name : old('name') }}"  id="name" placeholder="Le nom du produit" >
 
-                        <!-- Le message d'erreur pour "title" -->
-                    @error("title")
+                        <!-- Le message d'erreur pour "name" -->
+                    @error("name")
                     <div>{{ $message }}</div>
                     @enderror
                     </p>
 
-                    <!-- S'il y a une image $product->picture, on l'affiche -->
-                    @if(isset($product->picture))
+                    <!-- S'il y a une image $product->image, on l'affiche -->
+                    @if(isset($product->image))
                         <p>
-                            <span>Couverture actuelle</span><br/>
-                            <img src="{{ asset('storage/'.$product->picture) }}" alt="image de couverture actuelle" style="max-height: 200px;" >
+                            <span>Image actuelle</span><br/>
+                            <img src="{{ asset('storage/'.$product->image) }}" alt="image du produit actuelle" style="max-height: 200px;" >
                         </p>
                     @endif
 
                     <p>
-                        <label for="picture" >Couverture</label><br/>
-                        <input type="file" name="picture" id="picture" >
+                        <label for="image" >Image</label><br/>
+                        <input type="file" name="image" id="image" >
 
-                        <!-- Le message d'erreur pour "picture" -->
-                    @error("picture")
+                        <!-- Le message d'erreur pour "image" -->
+                    @error("image")
                     <div>{{ $message }}</div>
                     @enderror
                     </p>
                     <p>
-                        <label for="content" >Contenu</label><br/>
+                        <label for="description" >Contenu</label><br/>
 
                         <!-- S'il y a un $product->content, on complète la valeur du textarea -->
-                        <textarea name="content" id="content" lang="fr" rows="10" cols="50" placeholder="Le contenu du post" >{{ isset($post->content) ? $post->content : old('content') }}</textarea>
+                        <textarea name="description" id="description" lang="fr" rows="10" cols="50" placeholder="La description du produit" >{{ isset($product->description) ? $product->description : old('description') }}</textarea>
 
-                        <!-- Le message d'erreur pour "content" -->
-                    @error("content")
+                        <!-- Le message d'erreur pour "description" -->
+                    @error("description")
                     <div>{{ $message }}</div>
                     @enderror
+                    </p>
+
+                    <p>
+
+                        <label for="price" >Prix du produit</label>
+                        <input type="number" name="price" id="price" >
+                    </p>
+
+                    <p>
+
+                        <label for="quantity" >Quantité du produit</label>
+                        <input type="number" name="quantity" id="quantity" >
                     </p>
 
                     <input type="submit" name="valider" value="Valider" >

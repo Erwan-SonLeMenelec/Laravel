@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $products = Product::latest()->get();
 
@@ -22,7 +23,7 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         //On retourne la vue "/resources/views/products/edit.blade.php"
         return view("products.edit");
@@ -31,7 +32,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         // 1. La validation
         $this->validate($request, [
@@ -46,13 +47,15 @@ class ProductController extends Controller
         $chemin_image = $request->image->store("products");
 
         // 3. On enregistre les informations du Post
-        Product::create([
-            "name" => $request->name,
+       $product = Product::create([
+            "name" => $request->input('name'),
             "image" => $chemin_image,
-            "description" => $request->description,
-            "price" => $request->price,
-            "quantity" => $request->quantity,
+            "description" => $request->input('description'),
+            "price" => $request->input('price'),
+            "quantity" => $request->input('quantity'),
         ]);
+
+       dd($request->all());
 
         // 4. On retourne vers tous les posts : route("products.index")
         return redirect(route("products.index"));
@@ -61,7 +64,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(product $product)
+    public function show(product $product): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view("products.show", compact("product"));
 
@@ -70,15 +73,16 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(product $product)
+    public function edit(product $product): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view("products.edit", compact("product"));
     }
 
     /**
      * Update the specified resource in storage.
+     * @throws ValidationException
      */
-    public function update(Request $request, product $product)
+    public function update(Request $request, product $product): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         // 1. La validation
 

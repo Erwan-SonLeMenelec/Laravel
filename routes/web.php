@@ -21,7 +21,8 @@ use App\Models\product;
 Route::resource("products",ProductController::class);
 
 Route::get('/product', [\App\Http\Controllers\ProductController::class, 'index']);
-Route::post('/product/create',[\App\Http\Controllers\ProductController::class, 'create']);
+Route::post('/product/new', [\App\Http\Controllers\ProductController::class, 'store']);
+Route::get('/product/new',[\App\Http\Controllers\ProductController::class, 'create']);
 
 Route::get('/', function () {
     return view('welcome');
