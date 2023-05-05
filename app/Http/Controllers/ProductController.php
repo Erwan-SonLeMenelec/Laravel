@@ -55,8 +55,6 @@ class ProductController extends Controller
             "quantity" => $request->input('quantity'),
         ]);
 
-       dd($request->all());
-
         // 4. On retourne vers tous les posts : route("products.index")
         return redirect(route("products.index"));
     }
@@ -84,6 +82,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, product $product): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
+        dd($product);
         // 1. La validation
 
         // Les règles de validation pour "title" et "content"

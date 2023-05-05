@@ -17,6 +17,7 @@ use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,11 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static?string $navigationGroup = 'Admin Management';
+
+    //protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
@@ -80,7 +85,7 @@ class UserResource extends Resource
                     ->boolean()->sortable()->searchable(),
             ])
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -94,7 +99,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-
+            RelationManagers\RolesRelationManager::class
         ];
     }
 

@@ -20,9 +20,6 @@ use App\Models\product;
 
 Route::resource("products",ProductController::class);
 
-Route::get('/product', [\App\Http\Controllers\ProductController::class, 'index']);
-Route::post('/product/new', [\App\Http\Controllers\ProductController::class, 'store']);
-Route::get('/product/new',[\App\Http\Controllers\ProductController::class, 'create']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,9 +66,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::get('/product/create', [ProductController::class, 'create']);
-Route::post('/product', [ProductController::class, 'store']);
-
 
 require __DIR__.'/auth.php';
