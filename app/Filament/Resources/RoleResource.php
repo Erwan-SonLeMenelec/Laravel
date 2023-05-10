@@ -35,8 +35,7 @@ class RoleResource extends Resource
                             ->required(),
                         MultiSelect::make('permissions')
                         ->relationship('permissions','name')
-                        ->preload()
-                        ->required(),
+                        ->preload(),
                     ])
             ]);
     }
